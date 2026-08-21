@@ -1,0 +1,28 @@
+{#
+  Placez ce fichier dans :
+  themes/custom/VOTRE_THEME/templates/views/
+
+  Nom du fichier :
+  views-view-fields--publication-mise-en-avant--block-1.html.twig
+
+  Vue : Publication mise en avant
+  Affichage : Block (block_1)
+  Champs requis dans la vue : field_couverture, field_nouveaute,
+  title, field_resume et view_node.
+#}
+<article class="ansd-featured-publication">
+  <div class="ansd-featured-publication__cover">
+    {{ fields.field_couverture.content }}
+  </div>
+
+  <div class="ansd-featured-publication__body">
+    {% set badge = fields.field_nouveaute.content|render|striptags|trim %}
+    {% if badge %}
+      <span class="ansd-featured-publication__badge">{{ badge }}</span>
+    {% endif %}
+
+    <h2 class="ansd-featured-publication__title">{{ fields.title.content }}</h2>
+    <div class="ansd-featured-publication__summary">{{ fields.field_resume.content }}</div>
+    <div class="ansd-featured-publication__action">{{ fields.view_node.content }}</div>
+  </div>
+</article>

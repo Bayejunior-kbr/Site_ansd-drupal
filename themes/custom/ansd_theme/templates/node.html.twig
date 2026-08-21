@@ -1,0 +1,46 @@
+{% if node.bundle == 'page' %}
+  <article class="ansd-page ansd-presentation">
+    <header class="ansd-presentation__hero">
+      <div class="ansd-presentation__hero-content">
+        <p class="ansd-presentation__eyebrow">À propos de l’ANSD</p>
+        <h1>{{ label }}</h1>
+      </div>
+    </header>
+
+    <section class="ansd-reveal">
+      <div class="ansd-reveal__inner">
+        <p class="ansd-reveal__line">L’ANSD est le service officiel de production et de diffusion des statistiques du Sénégal.</p>
+        <p class="ansd-reveal__line">Créée par la loi n°2004-21 du 21 juillet 2004 portant organisation des activités statistiques du Système statistique national (SSN), l’Agence Nationale de la Statistique et la Démographie (ANSD) est une structure administrative dotée de la personnalité juridique et d’une autonomie de gestion.</p>
+        <p class="ansd-reveal__line ansd-reveal__line--label">NOS MISSIONS</p>
+        <p class="ansd-reveal__line ansd-reveal__line--label">De l'ex-DPS à l'ANSD</p>
+        <p class="ansd-reveal__line">L'Agence nationale de la Statistique et de la Démographie (ANSD) est une structure administrative dotée de la personnalité juridique et d'une autonomie de gestion et placée sous l'autorité du ministre chargé de la Statistique. En particulier l'Agence est chargée :</p>
+        <p class="ansd-reveal__line">de veiller à l’élaboration et à la mise en œuvre des programmes pluriannuels et annuels d’activités statistiques</p>
+        <p class="ansd-reveal__line">d’assurer la mise en application des méthodes, concepts, définitions, normes, classifications et nomenclatures approuvés par le Comité technique des programmes statistiques</p>
+        <p class="ansd-reveal__line">de préparer les dossiers à soumettre aux réunions du Conseil national de la statistique et du Comité technique des programmes statistiques</p>
+        <p class="ansd-reveal__line">d’assurer le secrétariat et l’organisation des réunions du Conseil national de la statistique et du Comité technique des programmes statistiques ainsi que de ses sous-comités sectoriels</p>
+        <p class="ansd-reveal__line">de réaliser des enquêtes d’inventaire à couverture nationale notamment les recensements généraux de la population et les recensements d’entreprises</p>
+        <p class="ansd-reveal__line">de produire les comptes de la nation</p>
+        <p class="ansd-reveal__line">de suivre la conjoncture et la prévision économiques en rapport avec le service en charge de la prévision et de la conjoncture économique</p>
+        <p class="ansd-reveal__line">d’élaborer et de gérer les fichiers des entreprises et des localités</p>
+        <p class="ansd-reveal__line">d’élaborer les indicateurs économiques, sociaux et démographiques</p>
+        <p class="ansd-reveal__line">de centraliser et de diffuser les synthèses des données statistiques produites par l’ensemble du système statistique national</p>
+        <p class="ansd-reveal__line">de favoriser le développement des sciences statistiques et la recherche économique appliquée relevant de sa compétence</p>
+        <p class="ansd-reveal__line">de promouvoir la formation du personnel spécialisé pour le fonctionnement du système national d’information statistique par l’organisation des cycles de formation appropriés notamment au sein d’une école à vocation régionale ou sous régionale intégrée à l’agence.</p>
+        <p class="ansd-reveal__line">L'Agence est en outre chargée du suivi de la coopération technique internationale en matière statistique. À ce titre, elle représente le Sénégal dans les réunions sous-régionales, régionales et internationales relatives aux questions relevant de sa compétence et suit les activités des organisations internationales en ce qui concerne les questions statistiques.</p>
+        <p class="ansd-reveal__line">L'Agence peut entreprendre, à la demande du gouvernement et des administrations publiques et privées, des études et recherches sur les questions statistiques, économiques et sociales à titre onéreux ou gracieux dans les conditions définies par le Conseil d'Orientation. De tels travaux donnent lieu à la signature de contrats de service ou de protocole d'accord entre l'Agence, le commanditaire de tels travaux, et éventuellement les bailleurs de fonds.</p>
+      </div>
+    </section>
+
+    {{ content }}
+  </article>
+{% else %}
+  <article class="ansd-node-publication">
+    <div class="ansd-node-publication__cover">{{ content.field_couverture }}</div>
+    <div class="ansd-node-publication__body">
+      {% if content.field_nouveaute %}<div class="ansd-node-publication__badge">{{ content.field_nouveaute }}</div>{% endif %}
+      <h1 class="ansd-node-publication__title">{{ label }}</h1>
+      <div class="ansd-node-publication__summary">{{ content.field_resume }}</div>
+      {% if content.field_lien_rapport %}<div class="ansd-node-publication__action">{{ content.field_lien_rapport }}</div>{% endif %}
+    </div>
+  </article>
+{% endif %}

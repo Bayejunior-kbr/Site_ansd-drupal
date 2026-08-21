@@ -1,0 +1,15 @@
+<article class="ansd-node-basic{% if node.field_page_phare.value %} ansd-phare-page{% endif %}">
+  {% if content.field_image %}
+    <div class="ansd-node-basic__image">
+      {{ content.field_image }}
+    </div>
+  {% endif %}
+  <div class="ansd-node-basic__body">
+    <h1 class="ansd-node-basic__title">{{ label }}</h1>
+    {% if content.field_texte %}
+      <div class="ansd-node-basic__text">
+        {{ content.field_texte }}
+      </div>
+    {% endif %}
+  </div>
+</article>

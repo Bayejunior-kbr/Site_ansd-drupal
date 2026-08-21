@@ -1,0 +1,19 @@
+name: ANSD Theme
+type: theme
+description: 'Thème custom pour la refonte du site ANSD'
+core_version_requirement: ^11
+base theme: bootstrap5
+libraries:
+  - ansd_theme/global-styling
+  - ansd_theme/phare-pubs-carousel
+regions:
+  header: 'En-tête'
+  primary_menu: 'Menu principal'
+  ticker: 'Bandeau défilant'
+  hero: 'Hero'
+  content: 'Contenu'
+  sidebar: 'Sidebar'
+  footer_top: 'Footer haut'
+  footer_bottom: 'Footer bas'
+  featured_publication: 'Publication à la une'
+  breadcrumb: 'Breadcrumb'

@@ -1,0 +1,71 @@
+<article{{ attributes.addClass('ansd-pub-detail') }}>
+
+  <h1 class="ansd-pub-title">{{ label }}</h1>
+
+  <div class="ansd-pub-layout">
+
+    <div class="ansd-pub-main">
+      <h2>Dernière information</h2>
+      <div class="ansd-pub-resume">
+        {{ content.field_resume }}
+      </div>
+    </div>
+
+    <aside class="ansd-pub-sidebar">
+
+      {% if content.field_derniere_publication %}
+        <p><strong>Dernière publication :</strong>
+          {{ content.field_derniere_publication }}
+        </p>
+      {% endif %}
+
+      {% if content.field_date_publication %}
+        <p><strong>Prochaine parution :</strong>
+          {{ content.field_date_publication }}
+        </p>
+      {% endif %}
+
+      <hr>
+
+      {% if content.field_date_mise_en_ligne %}
+        <p><strong>Date de mise en ligne :</strong>
+          {{ content.field_date_mise_en_ligne }}
+        </p>
+      {% endif %}
+
+     {% if content.field_document_pdf %}
+  <p>
+    <strong>VERSION IMPRIMABLE</strong><br>
+    {{ content.field_document_pdf }}
+  </p>
+{% endif %}
+
+      {% if content.field_rapports_archives %}
+  <div class="ansd-pub-archives">
+    <button type="button" class="ansd-pub-archives__toggle">
+      Rapports et analyses
+    </button>
+    <div class="ansd-pub-archives__list">
+      {{ content.field_rapports_archives }}
+    </div>
+  </div>
+{% endif %}
+
+    </aside>
+
+  </div>
+  {% if content.field_presentation %}
+  <div class="ansd-pub-presentation">
+    <h2>Présentation de la publication</h2>
+    {{ content.field_presentation }}
+  </div>
+{% endif %}
+
+{% if content.field_themes_similaires %}
+  <aside class="ansd-pub-themes-similaires">
+    <h3>Thèmes similaires</h3>
+    {{ content.field_themes_similaires }}
+  </aside>
+{% endif %}
+
+</article>

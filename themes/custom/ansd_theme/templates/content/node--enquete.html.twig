@@ -1,0 +1,31 @@
+{#
+/**
+ * Template pour le content type "Enquête".
+ * A placer dans : themes/custom/ansd_theme/templates/content/node--enquete.html.twig
+ */
+#}
+<article{{ attributes.addClass('node-enquete') }}>
+
+  {% if content.field_image %}
+    <div class="enquete-hero">
+      {{ content.field_image }}
+    </div>
+  {% endif %}
+
+  <div class="enquete-page-wrapper">
+
+    <h1 class="enquete-title">{{ label }}</h1>
+
+    {% if content.field_annee %}
+      <div class="enquete-annee">{{ content.field_annee }}</div>
+    {% endif %}
+
+    {% if content.field_description_courte %}
+      <div class="enquete-description">
+        {{ content.field_description_courte }}
+      </div>
+    {% endif %}
+
+  </div>
+
+</article>
