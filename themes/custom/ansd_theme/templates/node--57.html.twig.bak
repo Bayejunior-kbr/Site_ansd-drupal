@@ -1,6 +1,0 @@
-<article class="ansd-node-basic ansd-phare-page">
-  <h1 class="ansd-node-basic__title">{{ label }}</h1>
-  <div class="ansd-phare-content">
-    {{ content }}
-  </div>
-</article>

@@ -6,6 +6,7 @@ base theme: bootstrap5
 libraries:
   - ansd_theme/global-styling
   - ansd_theme/phare-pubs-carousel
+  - ansd_theme/google-fonts
 regions:
   header: 'En-tête'
   primary_menu: 'Menu principal'
@@ -17,3 +18,4 @@ regions:
   footer_bottom: 'Footer bas'
   featured_publication: 'Publication à la une'
   breadcrumb: 'Breadcrumb'
+

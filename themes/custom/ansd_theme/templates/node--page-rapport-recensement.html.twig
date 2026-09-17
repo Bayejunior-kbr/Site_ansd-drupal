@@ -1,0 +1,89 @@
+<div class="rapport-page">
+
+  {# HERO #}
+  <div class="rapport-hero" style="background-image: url('{{ file_url(node.field_hero_image.entity.fileuri) }}');">
+    <div class="rapport-hero-overlay">
+      <h1 class="rapport-hero-titre">{{ node.field_hero_titre.value|striptags|trim }}</h1>
+      <p class="rapport-hero-soustitre">{{ node.field_hero_soustitre.value|striptags|trim }}</p>
+    </div>
+  </div>
+
+  <div class="rapport-content">
+
+    {# BOUTON RETOUR + TITRE #}
+    <div class="rapport-topbar">
+      {% if not node.field_retour_lien.isEmpty %}
+        <a href="{{ node.field_retour_lien.uri|replace({'internal:/': '/', 'entity:node/': '/node/'}) }}" class="rapport-btn-retour">
+          {{ node.field_retour_lien.title|default('Retour') }}
+        </a>
+      {% endif %}
+      <h2 class="rapport-titre-principal">{{ node.title.value }}</h2>
+    </div>
+
+    {# BANDEAU RAPPORT NATIONAL - mis en avant #}
+    <div class="rapport-national-bandeau">
+      {% if not node.field_rapport_image.isEmpty %}
+        <img src="{{ file_url(node.field_rapport_image.entity.fileuri) }}" alt="{{ node.title.value }}" class="rapport-national-cover">
+      {% endif %}
+      <div class="rapport-national-infos">
+        <span class="rapport-national-label">Document principal</span>
+        <h3 class="rapport-national-titre">Rapport national — {{ node.title.value }}</h3>
+        {% if not node.field_rapport_national_lien.isEmpty %}
+          <a href="{{ node.field_rapport_national_lien.uri|replace({'internal:/': '/', 'entity:node/': '/node/'}) }}" class="rapport-btn-telecharger" target="_blank" rel="noopener noreferrer">
+            {{ node.field_rapport_national_lien.title|default('Télécharger le rapport national') }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="rapport-grille">
+
+      {# COLONNE GAUCHE : sommaire des chapitres #}
+      <div class="rapport-colonne-gauche">
+        {% if not node.field_chapitres.isEmpty %}
+          <h3 class="rapport-section-titre">Sommaire</h3>
+          <ol class="rapport-sommaire">
+            {% for item in node.field_chapitres %}
+              <li>
+                <a href="{{ item.uri|replace({'internal:/': '/', 'entity:node/': '/node/'}) }}" target="_blank" rel="noopener noreferrer">
+                  <span class="rapport-sommaire-numero">{{ '%02d'|format(loop.index) }}</span>
+                  <span class="rapport-sommaire-texte">{{ item.title }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ol>
+        {% endif %}
+      </div>
+
+      {# COLONNE DROITE : rapports régionaux + autres produits #}
+      <div class="rapport-colonne-droite">
+
+        {% if not node.field_rapports_regionaux.isEmpty %}
+          <h3 class="rapport-section-titre">Rapports régionaux</h3>
+          <div class="rapport-grille-regions">
+            {% for item in node.field_rapports_regionaux %}
+              <a href="{{ item.uri|replace({'internal:/': '/', 'entity:node/': '/node/'}) }}" class="rapport-carte-region" target="_blank" rel="noopener noreferrer">
+                <span class="rapport-region-nom">{{ item.title }}</span>
+                <span class="rapport-region-icone">↓</span>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if not node.field_autres_produits.isEmpty %}
+          <h3 class="rapport-section-titre">Autres produits</h3>
+          <ul class="rapport-liste-autres">
+            {% for item in node.field_autres_produits %}
+              <li>
+                <a href="{{ item.uri|replace({'internal:/': '/', 'entity:node/': '/node/'}) }}" target="_blank" rel="noopener noreferrer">
+                  {{ item.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>

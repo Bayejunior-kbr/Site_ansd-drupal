@@ -1,0 +1,108 @@
+{% set stats_nationales = drupal_entity('block_content', 26) %}
+
+<article{{ attributes.addClass('ansd-region-detail') }}>
+
+  <div class="ansd-region-detail__wrapper">
+    <div class="ansd-region-detail__container">
+
+      <h1 class="ansd-region-detail__titre">{{ name }}</h1>
+
+      <div class="ansd-region-detail__contenu">
+
+        <div class="ansd-region-detail__carte">
+          {% if content.field_carte_region %}
+            {{ content.field_carte_region.0 }}
+          {% endif %}
+        </div>
+
+        <div class="ansd-region-detail__service">
+          <h2>Service</h2>
+          <table class="ansd-region-detail__table-service">
+            <tr>
+              <td>Chef de service</td>
+              <td>{{ content.field_chef_service.0 }}</td>
+            </tr>
+            <tr>
+              <td>Adjoint Chef de service</td>
+              <td>{{ content.field_adjoint_chef_service.0 }}</td>
+            </tr>
+            <tr>
+              <td>BP</td>
+              <td>{{ content.field_bp.0 }}</td>
+            </tr>
+            <tr>
+              <td>Tel/Fax</td>
+              <td>{{ content.field_telephone_fax.0 }}</td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="ansd-region-detail__stats">
+        <table class="ansd-region-detail__table-stats">
+          <thead>
+            <tr>
+              <th>Indicateurs</th>
+              <th>{{ name }}</th>
+              <th>Sénégal</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Superficie en Km²</td>
+              <td>{{ content.field_superficie.0 }}</td>
+              <td>{{ stats_nationales.field_superficie.0 }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Population Masculine</td>
+              <td>{{ content.field_population_masculine.0 }}</td>
+              <td>{{ stats_nationales.field_population_masculine.0 }}</td>
+              <td>{{ content.field_source_population.0 }}</td>
+            </tr>
+            <tr>
+              <td>Population Féminine</td>
+              <td>{{ content.field_population_feminine.0 }}</td>
+              <td>{{ stats_nationales.field_population_feminine.0 }}</td>
+              <td>{{ content.field_source_population.0 }}</td>
+            </tr>
+            <tr>
+              <td>Population</td>
+              <td>{{ content.field_population_totale.0 }}</td>
+              <td>{{ stats_nationales.field_population_totale.0 }}</td>
+              <td>{{ content.field_source_population.0 }}</td>
+            </tr>
+            <tr>
+              <td>Taux brut de scolarisation globale (%)</td>
+              <td>{{ content.field_taux_scolarisation.0 }}</td>
+              <td>{{ stats_nationales.field_taux_scolarisation.0 }}</td>
+              <td>{{ content.field_source_scolarisation.0 }}</td>
+            </tr>
+            <tr>
+              <td>Incidence pauvreté</td>
+              <td>{{ content.field_incidence_pauvrete.0 }}</td>
+              <td>{{ stats_nationales.field_incidence_pauvrete.0 }}</td>
+              <td>{{ content.field_source_pauvrete.0 }}</td>
+            </tr>
+            <tr>
+              <td>Taux d'alphabétisation général (%)</td>
+              <td>{{ content.field_taux_alphabetisation.0 }}</td>
+              <td>{{ stats_nationales.field_taux_alphabetisation.0 }}</td>
+              <td>{{ content.field_source_alphabetisation.0 }}</td>
+            </tr>
+            <tr>
+              <td>Taux d'enregistrement des enfants à l'état civil (%)</td>
+              <td>{{ content.field_taux_enregistrement_enfant.0 }}</td>
+              <td>{{ stats_nationales.field_taux_enregistrement_enfant.0 }}</td>
+              <td>{{ content.field_source_enregistrement.0 }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</article>

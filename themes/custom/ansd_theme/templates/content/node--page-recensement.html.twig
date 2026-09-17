@@ -1,0 +1,80 @@
+<article{{ attributes.addClass('ansd-recensement') }}>
+
+  <section class="ansd-recensement-hero">
+    {% if content.field_image_hero.0 %}
+      <div class="ansd-recensement-hero-bg">
+        {{ content.field_image_hero }}
+      </div>
+    {% endif %}
+    <div class="ansd-recensement-hero-overlay"></div>
+    <div class="ansd-recensement-hero-content">
+      <h1>{{ label }}</h1>
+      {% if content.field_badge.0 %}
+        <span class="ansd-recensement-badge">{{ content.field_badge.0 }}</span>
+      {% endif %}
+    </div>
+  </section>
+
+  <div class="ansd-recensement-body">
+
+    <div class="ansd-recensement-back">
+      {% if content.field_lien_retour.0 %}
+        {{ content.field_lien_retour }}
+      {% else %}
+        <a href="{{ url('<front>') }}">← Retour</a>
+      {% endif %}
+    </div>
+
+    <div class="ansd-recensement-layout">
+
+      {# COLONNE LATERALE FIXE : logo + accès rapides #}
+      <aside class="ansd-recensement-sidebar">
+        {% if content.field_logo.0 %}
+          <div class="ansd-recensement-sidebar__logo">
+            {{ content.field_logo }}
+          </div>
+        {% endif %}
+
+        <nav class="ansd-recensement-sidebar__nav">
+          {% if content.field_lien_rapport|render|trim %}
+            <div class="ansd-sidebar-item">
+              <span class="ansd-sidebar-item__label">Rapports</span>
+              {{ content.field_lien_rapport }}
+            </div>
+          {% endif %}
+
+          {% if content.field_lien_donnees|render|trim %}
+            <div class="ansd-sidebar-item">
+              <span class="ansd-sidebar-item__label">Données</span>
+              {{ content.field_lien_donnees }}
+            </div>
+          {% endif %}
+
+          {% if content.field_lien_microdonnees|render|trim %}
+            <div class="ansd-sidebar-item">
+              <span class="ansd-sidebar-item__label">Micro-données</span>
+              {{ content.field_lien_microdonnees }}
+            </div>
+          {% endif %}
+
+          {% if content.field_lien_autres_ressources|render|trim %}
+            <div class="ansd-sidebar-item">
+              <span class="ansd-sidebar-item__label">Autres ressources</span>
+              {{ content.field_lien_autres_ressources }}
+            </div>
+          {% endif %}
+        </nav>
+      </aside>
+
+      {# COLONNE PRINCIPALE : texte pleine largeur #}
+      <div class="ansd-recensement-main">
+        <div class="ansd-recensement-main__text">
+          {{ content.field_texte }}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</article>

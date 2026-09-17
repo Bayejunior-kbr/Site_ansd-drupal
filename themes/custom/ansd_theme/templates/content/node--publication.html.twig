@@ -33,39 +33,78 @@
         </p>
       {% endif %}
 
-     {% if content.field_document_pdf %}
+      {% if content.field_document_pdf.0['#url'] %}
   <p>
     <strong>VERSION IMPRIMABLE</strong><br>
-    {{ content.field_document_pdf }}
+    <a href="{{ content.field_document_pdf.0['#url'] }}" download target="_blank" rel="noopener noreferrer">
+      Télécharger
+    </a>
   </p>
 {% endif %}
 
       {% if content.field_rapports_archives %}
-  <div class="ansd-pub-archives">
-    <button type="button" class="ansd-pub-archives__toggle">
-      Rapports et analyses
-    </button>
-    <div class="ansd-pub-archives__list">
-      {{ content.field_rapports_archives }}
+        <div class="ansd-pub-archives">
+          <button type="button" class="ansd-pub-archives__toggle">
+            Rapports et analyses
+          </button>
+          <div class="ansd-pub-archives__list">
+            {{ content.field_rapports_archives }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if content.field_donnees %}
+        <div class="ansd-pub-archives">
+          <button type="button" class="ansd-pub-archives__toggle">
+            Données
+          </button>
+          <div class="ansd-pub-archives__list">
+            {{ content.field_donnees }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if content.field_documents_de_reference %}
+        <div class="ansd-pub-archives">
+          <button type="button" class="ansd-pub-archives__toggle">
+            Documents de référence
+          </button>
+          <div class="ansd-pub-archives__list">
+            {{ content.field_documents_de_reference }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if content.field_themes_similaires %}
+    <div class="ansd-pub-archives">
+      <button type="button" class="ansd-pub-archives__toggle">
+        Thèmes similaires
+      </button>
+      <div class="ansd-pub-archives__list">
+        {{ content.field_themes_similaires }}
+      </div>
     </div>
-  </div>
-{% endif %}
+  {% endif %}
 
     </aside>
 
   </div>
-  {% if content.field_presentation %}
-  <div class="ansd-pub-presentation">
-    <h2>Présentation de la publication</h2>
-    {{ content.field_presentation }}
-  </div>
-{% endif %}
 
-{% if content.field_themes_similaires %}
-  <aside class="ansd-pub-themes-similaires">
-    <h3>Thèmes similaires</h3>
-    {{ content.field_themes_similaires }}
-  </aside>
-{% endif %}
+  {% if content.field_graphe_iframe|render|striptags|trim %}
+    <div class="ansd-pub-graphe">
+      <h2>Graphe indicateur</h2>
+      <div class="ansd-pub-graphe__embed">
+        {{ content.field_graphe_iframe }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if content.field_presentation %}
+    <div class="ansd-pub-presentation">
+      <h2>Présentation de la publication</h2>
+      {{ content.field_presentation }}
+    </div>
+  {% endif %}
+
 
 </article>

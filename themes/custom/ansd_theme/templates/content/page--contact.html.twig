@@ -1,0 +1,244 @@
+{{ attach_library('ansd_theme/enquetes-tabs') }}
+{{ attach_library('ansd_theme/ticker-clone') }}
+{{ attach_library('ansd_theme/leaflet-map') }}
+
+<section class="ansd-hero{% if not page.hero %} ansd-hero--no-content{% endif %}">
+  <video class="ansd-hero-video" autoplay muted loop playsinline>
+    <source src="{{ base_path ~ directory }}/video/Drone_filming_building_architecture_202608151235.mp4" type="video/mp4">
+  </video>
+  <div class="ansd-hero-overlay"></div>
+
+  <div class="ansd-site-header">
+    {% if page.ticker %}
+      <div class="ansd-ticker">
+        <span class="ansd-ticker-label">FLASH STAT</span>
+        <div class="ansd-ticker-viewport">
+          <div class="ansd-ticker-track">
+            <div class="ansd-ticker-copy">{{ page.ticker }}</div>
+            <div class="ansd-ticker-copy">{{ page.ticker }}</div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    <header class="ansd-navbar">
+      <div class="ansd-navbar-top">
+        <button class="ansd-menu-toggle" type="button" id="ansd-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="ansd-primary-menu">
+          <span class="ansd-burger"></span>
+          MENU
+        </button>
+
+       <div class="ansd-navbar-logo">
+  <a href="{{ path('<front>') }}">
+    <img src="{{ base_path ~ directory }}/images/LOGO ANSD HD.png" alt="ANSD - Agence Nationale de la Statistique et de la Démographie">
+  </a>
+</div>
+
+        <button class="ansd-navbar-search" type="button" id="ansd-search-toggle" aria-label="Recherche" aria-expanded="false" aria-controls="ansd-search-box">
+          RECHERCHE
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="ansd-search-box" id="ansd-search-box" hidden>
+        <form action="/drupalwebsite/search" method="get" class="ansd-search-form">
+          <input type="text" name="keys" placeholder="Rechercher sur le site..." autocomplete="off">
+          <button type="submit">OK</button>
+        </form>
+      </div>
+
+      <nav class="ansd-primary-menu" id="ansd-primary-menu">
+        <div class="region region-primary-menu">
+          {{ page.primary_menu }}
+        </div>
+      </nav>
+    </header>
+  </div>
+
+  {% if page.hero %}
+    <div class="ansd-hero-content">
+      {{ page.hero }}
+    </div>
+  {% endif %}
+</section>
+
+{% if page.featured_publication %}
+  <section class="ansd-home-featured" aria-label="Publication à la une">
+    {{ page.featured_publication }}
+  </section>
+{% endif %}
+
+
+<div class="ansd-page-wrapper">
+
+  {% if page.breadcrumb %}
+    <div class="ansd-breadcrumb">
+      {{ page.breadcrumb }}
+    </div>
+  {% endif %}
+
+  {% if page.highlighted %}
+    <div class="ansd-highlighted">
+      {{ page.highlighted }}
+    </div>
+  {% endif %}
+
+  {% if page.help %}
+    <div class="ansd-help">
+      {{ page.help }}
+    </div>
+  {% endif %}
+
+  <div class="ansd-main-layout">
+
+    {% if page.sidebar_first %}
+      <aside class="ansd-sidebar ansd-sidebar-first">
+        {{ page.sidebar_first }}
+      </aside>
+    {% endif %}
+
+    <main class="ansd-main-content" role="main">
+      <a id="main-content" tabindex="-1"></a>
+
+      {{ page.messages }}
+
+      {% if page.tabs %}
+        <div class="ansd-tabs">{{ page.tabs }}</div>
+      {% endif %}
+
+      {% if page.content_top %}
+        {{ page.content_top }}
+      {% endif %}
+
+      {% set contact_infos = drupal_entity('block_content', 27) %}
+
+      <div class="ansd-contact__wrapper">
+        <div class="ansd-contact__container">
+
+          <div class="ansd-contact__form">
+            {{ page.content }}
+          </div>
+
+          <div class="ansd-contact__info">
+            <div id="contact-leaflet-map"
+                 class="ansd-contact__map"
+                 data-lat="{{ contact_infos.field_latitude_contact.0 }}"
+                 data-lng="{{ contact_infos.field_longitude_contact.0 }}"></div>
+
+            <div class="ansd-contact__details">
+              <p class="ansd-contact__item ansd-contact__item--address">{{ contact_infos.field_adresse.0 }}</p>
+              <p class="ansd-contact__item">{{ contact_infos.field_bp_contact.0 }}</p>
+              <p class="ansd-contact__item ansd-contact__item--email">{{ contact_infos.field_email_1.0 }}</p>
+              {% if contact_infos.field_email_2.0 %}
+                <p class="ansd-contact__item ansd-contact__item--email">{{ contact_infos.field_email_2.0 }}</p>
+              {% endif %}
+              <p class="ansd-contact__item ansd-contact__item--phone">{{ contact_infos.field_telephone.0 }}</p>
+              <p class="ansd-contact__item ansd-contact__item--fax">{{ contact_infos.field_fax.0 }}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    {% if page.sidebar_second %}
+      <aside class="ansd-sidebar ansd-sidebar-second">
+        {{ page.sidebar_second }}
+      </aside>
+    {% endif %}
+
+  </div>
+  </div>
+
+  {% if page.footer_top or page.footer_bottom %}
+  <footer class="ansd-footer">
+    {% if page.footer_top %}
+      <div class="ansd-footer-top">
+        {{ page.footer_top }}
+      </div>
+    {% endif %}
+    {% if page.footer_bottom %}
+      <div class="ansd-footer-bottom-wrap">
+        {{ page.footer_bottom }}
+      </div>
+    {% endif %}
+  </footer>
+{% endif %}
+
+<script>
+  (function () {
+    var header = document.querySelector('.ansd-site-header');
+    var navbarTop = document.querySelector('.ansd-navbar-top');
+    var menuBtn = document.getElementById('ansd-menu-toggle');
+    var menu = document.getElementById('ansd-primary-menu');
+    var searchBtn = document.getElementById('ansd-search-toggle');
+    var searchBox = document.getElementById('ansd-search-box');
+    var mobile = window.matchMedia('(max-width: 900px)');
+
+    function setMenuOffset() {
+      if (navbarTop) {
+        document.documentElement.style.setProperty(
+          '--ansd-mobile-menu-top', navbarTop.getBoundingClientRect().bottom + 'px'
+        );
+      }
+    }
+
+    function updateHeader() {
+      if (header) {
+        header.classList.toggle('is-scrolled', window.scrollY > 20);
+      }
+      setMenuOffset();
+    }
+
+    function closeMenu() {
+      if (!menu || !menuBtn) return;
+      menu.classList.remove('is-open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('ansd-menu-open');
+    }
+
+    if (menuBtn && menu) {
+      menuBtn.addEventListener('click', function () {
+        var isOpen = menu.classList.toggle('is-open');
+        menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        document.body.classList.toggle('ansd-menu-open', isOpen);
+        setMenuOffset();
+      });
+    }
+
+    if (searchBtn && searchBox) {
+      searchBtn.addEventListener('click', function () {
+        var isHidden = searchBox.hasAttribute('hidden');
+        searchBox.toggleAttribute('hidden', !isHidden);
+        searchBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+        if (isHidden) {
+          var input = searchBox.querySelector('input');
+          if (input) input.focus();
+        }
+      });
+    }
+
+    if (menu) {
+      menu.addEventListener('click', function (event) {
+        var link = event.target.closest('.ansd-menu-item > a');
+        if (!link || !mobile.matches || !link.parentElement.querySelector(':scope > .ansd-submenu')) return;
+        event.preventDefault();
+        link.parentElement.classList.toggle('is-open');
+      });
+    }
+
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    window.addEventListener('resize', function () {
+      if (!mobile.matches) closeMenu();
+      updateHeader();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeMenu();
+    });
+    updateHeader();
+  })();
+</script>

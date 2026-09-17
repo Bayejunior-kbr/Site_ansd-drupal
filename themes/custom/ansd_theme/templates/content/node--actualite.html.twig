@@ -1,0 +1,44 @@
+{{ attach_library('ansd_theme/actualite-carousel') }}
+
+<article{{ attributes.addClass('ansd-actualite') }}>
+
+  <div class="ansd-actualite__wrapper">
+    <div class="ansd-actualite__container">
+
+      <h1 class="ansd-actualite__titre">{{ label }}</h1>
+
+      <div class="ansd-actualite__ligne"></div>
+
+      <div class="ansd-actualite__contenu">
+
+        <div class="ansd-actualite__texte">
+          {{ content.field_resume }}
+        </div>
+
+        <div class="ansd-actualite__image">
+          <div class="ansd-actualite__carousel" data-carousel>
+            {% set first_done = false %}
+            {% for key, item in content.field_image %}
+              {% if key|first != '#' %}
+                <div class="ansd-actualite__slide{% if not first_done %} is-active{% endif %}">
+                  {{ item }}
+                </div>
+                {% set first_done = true %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          {% if content.field_image['#items']|length > 1 %}
+            <div class="ansd-actualite__carousel-nav">
+              <button type="button" class="ansd-carousel-prev">préc</button>
+              <button type="button" class="ansd-carousel-next">suivant</button>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+  
+    </div>
+  </div>
+
+</article>

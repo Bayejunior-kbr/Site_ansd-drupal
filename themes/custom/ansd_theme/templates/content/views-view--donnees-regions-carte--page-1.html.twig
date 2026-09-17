@@ -1,0 +1,13 @@
+{{ attach_library('ansd_theme/leaflet-map') }}
+
+<div class="ansd-regions-filter">
+  <select id="regions-filter-select">
+    <option value="">- Toutes les régions -</option>
+  </select>
+</div>
+
+<div id="regions-leaflet-map" class="ansd-regions-map"></div>
+
+<div class="region-data-source" style="display:none;">
+  {{ rows }}
+</div>

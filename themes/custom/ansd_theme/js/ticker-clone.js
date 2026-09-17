@@ -4,7 +4,7 @@ window.addEventListener('load', function () {
 
   track.innerHTML += track.innerHTML;
 
-  var pixelsPerSecond = 60;
+  var pixelsPerSecond = 35;
   var fullWidth = track.scrollWidth / 2;
   var duration = fullWidth / pixelsPerSecond;
 

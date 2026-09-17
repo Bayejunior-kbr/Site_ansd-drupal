@@ -1,0 +1,19 @@
+<div class="ansd-parution-slide">
+  <div class="ansd-parution-bulletin-label">
+  Bulletin{% if fields.field_date_publication is defined and fields.field_date_publication.content %} — {{ fields.field_date_publication.content }}{% endif %}
+</div>
+
+  <h3 class="ansd-parution-bulletin-link">
+    <a href="{{ path('entity.node.canonical', {'node': row._entity.id}) }}">
+      {{ fields.title.content }}
+    </a>
+  </h3>
+
+  {% if fields.field_bref is defined %}
+    <p class="ansd-parution-resume">{{ fields.field_bref.content }}</p>
+  {% endif %}
+
+  <a class="ansd-parution-cta" href="{{ path('entity.node.canonical', {'node': row._entity.id}) }}">
+    Lire le bulletin complet →
+  </a>
+</div>

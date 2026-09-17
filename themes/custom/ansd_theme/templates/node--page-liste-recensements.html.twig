@@ -1,0 +1,51 @@
+<div class="recensements-page">
+
+  {# HERO #}
+  <div class="recensements-hero" style="background-image: url('{{ file_url(node.field_hero_image.entity.fileuri) }}');">
+    <div class="recensements-hero-overlay">
+      <h1 class="recensements-hero-titre">{{ node.field_hero_titre.value|striptags|trim }}</h1>
+      <p class="recensements-hero-soustitre">{{ node.field_hero_soustitre.value|striptags|trim }}</p>
+    </div>
+  </div>
+
+  {# TEXTE INTRO #}
+  <div class="recensements-intro">
+    <div class="recensements-intro-inner">
+      {{ node.field_texte.value|raw }}
+    </div>
+  </div>
+
+  {# FRISE CHRONOLOGIQUE #}
+  <div class="recensements-frise">
+    <div class="recensements-frise-inner">
+      <h2 class="recensements-frise-titre">Chronologie des recensements</h2>
+
+      <div class="frise-ligne">
+        {% for i in 1..5 %}
+          {% set badge = attribute(node, 'field_carte_' ~ i ~ '_badge') %}
+          {% set logo  = attribute(node, 'field_carte_' ~ i ~ '_logo') %}
+          {% set titre = attribute(node, 'field_carte_' ~ i ~ '_titre') %}
+          {% set lien  = attribute(node, 'field_carte_' ~ i ~ '_lien') %}
+
+          {% if not badge.isEmpty %}
+            <div class="frise-item {{ loop.index is odd ? 'frise-gauche' : 'frise-droite' }} {{ loop.last ? 'frise-item-featured' : '' }}">
+              <div class="frise-point"></div>
+              <div class="frise-carte">
+                <span class="frise-badge">{{ badge.value|striptags|trim }}</span>
+                <div class="frise-logo">
+                  <img src="{{ file_url(logo.entity.fileuri) }}" alt="{{ titre.value }}">
+                </div>
+                <div class="frise-titre">{{ titre.value|striptags|trim }}</div>
+                <a href="{{ lien.uri|replace({'internal:/': '/', 'entity:node/': '/node/'}) }}" class="frise-btn" target="_blank" rel="noopener noreferrer">
+                  {{ lien.title|default('Voir plus') }}
+                </a>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+
+</div>

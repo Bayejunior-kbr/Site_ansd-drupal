@@ -1,0 +1,16 @@
+{% for row in rows %}
+  <div class="region-data"
+       data-name="{{ row.content['#row']._entity.get('name').value }}"
+       data-lat="{{ row.content['#row']._entity.get('field_latitude').value }}"
+       data-lng="{{ row.content['#row']._entity.get('field_longitude').value }}"
+       data-population="{{ row.content['#row']._entity.get('field_population_totale').value }}"
+       data-population-masculine="{{ row.content['#row']._entity.get('field_population_masculine').value }}"
+       data-population-feminine="{{ row.content['#row']._entity.get('field_population_feminine').value }}"
+       data-superficie="{{ row.content['#row']._entity.get('field_superficie').value }}"
+       data-taux-scolarisation="{{ row.content['#row']._entity.get('field_taux_scolarisation').value }}"
+       data-incidence-pauvrete="{{ row.content['#row']._entity.get('field_incidence_pauvrete').value }}"
+       data-taux-alphabetisation="{{ row.content['#row']._entity.get('field_taux_alphabetisation').value }}"
+       data-taux-enregistrement="{{ row.content['#row']._entity.get('field_taux_enregistrement_enfant').value }}"
+       data-tid="{{ row.content['#row']._entity.id() }}">
+  </div>
+{% endfor %}

@@ -1,0 +1,7 @@
+ansd_export.export_xlsx:
+  path: '/donnees-recensements/export-xlsx'
+  defaults:
+    _controller: '\Drupal\ansd_export\Controller\ExportXlsxController::export'
+    _title: 'Export XLSX'
+  requirements:
+    _access: 'TRUE'

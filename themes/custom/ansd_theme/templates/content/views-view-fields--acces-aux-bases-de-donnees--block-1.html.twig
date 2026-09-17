@@ -1,0 +1,20 @@
+{% set lien = row._entity.field_db_lien.0.uri %}
+{% if lien starts with 'internal:' %}
+  {% set lien = path(lien|replace({'internal:': ''})) %}
+{% endif %}
+
+<article class="ansd-db-card">
+  <div class="ansd-db-card-img">
+    <a href="{{ lien|default('#') }}" target="_blank" rel="noopener">
+      {{ fields.field_db_logo.content }}
+    </a>
+  </div>
+  <div class="ansd-db-card-body">
+    <h3>
+      <a href="{{ lien|default('#') }}" target="_blank" rel="noopener">{{ fields.title.content }}</a>
+    </h3>
+    <p>
+      <a class="ansd-db-card-link" href="{{ lien|default('#') }}" target="_blank" rel="noopener">Voir plus <span>→</span></a>
+    </p>
+  </div>
+</article>

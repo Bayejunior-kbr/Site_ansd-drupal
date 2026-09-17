@@ -1,0 +1,16 @@
+<div class="ansd-parution-carousel" data-ansd-carousel>
+  <div class="ansd-parution-track">
+    {% for row in rows %}
+      {{ row.content }}
+    {% endfor %}
+  </div>
+
+  <button class="ansd-parution-arrow ansd-parution-prev" type="button" aria-label="Précédent">‹</button>
+  <button class="ansd-parution-arrow ansd-parution-next" type="button" aria-label="Suivant">›</button>
+
+  <div class="ansd-parution-counter"><span class="ansd-cur">1</span> / <span class="ansd-tot">{{ rows|length }}</span></div>
+</div>
+
+<div class="ansd-parution-voir-tout">
+  <a href="/drupalwebsite/derniers-parutions" class="ansd-parution-voir-tout-btn">Voir toutes les parutions →</a>
+</div>

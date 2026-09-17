@@ -10,7 +10,7 @@
     {% endif %}
     {% for item in items %}
       <li{{ item.attributes.addClass('ansd-menu-item') }}>
-        <a href="{{ item.url }}"{% if item.url.isExternal %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}</a>
+        <a href="{{ item.url }}"{% if item.url.isExternal %} target="_blank" rel="noopener noreferrer"{% endif %}{% if item.in_active_trail %} class="is-active"{% endif %}>{{ item.title }}</a>
         {% if item.below %}
           {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
         {% endif %}

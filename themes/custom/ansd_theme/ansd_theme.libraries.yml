@@ -5,6 +5,11 @@ global-styling:
   js:
     js/script.js: {}
 
+google-fonts:
+  css:
+    theme:
+      https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap: { type: external, minified: true }
+
 enquetes-tabs:
   js:
     js/tabs-toggle.js: {}
@@ -18,3 +23,19 @@ phare-pubs-carousel:
   dependencies:
     - core/drupal
     - core/once
+
+ticker-clone:
+  js:
+    js/ticker-clone.js: {}
+  dependencies:
+    - core/drupal
+
+leaflet-map:
+  css:
+    theme:
+      https://unpkg.com/leaflet@1.9.4/dist/leaflet.css: { type: external, minified: true }
+  js:
+    https://unpkg.com/leaflet@1.9.4/dist/leaflet.js: { type: external, minified: true, attributes: { defer: true } }
+    js/regions-map.js: {}
+  dependencies:
+    - core/drupal
