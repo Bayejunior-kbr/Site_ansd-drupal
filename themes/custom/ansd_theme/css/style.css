@@ -48,13 +48,19 @@ html, body {
 
 .ansd-ticker-label {
   flex: 0 0 140px;
-  background: #f4f4f4;
-  color: #1a1a1a;
+  background: var(--ansd-primary);
+  color: #ffffff;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   letter-spacing: 0.05em;
+  animation: ansd-flash-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes ansd-flash-blink {
+  0%, 100% { color: #ffffff; }
+  50% { color: #f4b400; }
 }
 
 .ansd-ticker-viewport {
@@ -280,11 +286,18 @@ html, body {
 .ansd-burger::before { top: -6px; }
 .ansd-burger::after { top: 6px; }
 
-.ansd-navbar-logo img {
-  max-height: 55px;
-  display: block;
+.ansd-navbar-logo {
+  position: relative; /* sert de repère pour l'absolute de l'image */
 }
 
+.ansd-navbar-logo img {
+  max-height: 110px;
+  display: block;
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .ansd-primary-menu {
   background: transparent;
   border-top: none;
@@ -339,7 +352,7 @@ html, body {
   list-style: none;
   padding: 0.4rem 1.5rem;
   margin: 0;
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 .ansd-menu-item {
@@ -351,7 +364,7 @@ html, body {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
   display: block;
-  padding: 0.65rem 1rem;
+  padding: 0.65rem 0.6rem;
   border-radius: 4px;
   transition: background 0.2s ease, color 0.2s ease;
 }
@@ -541,12 +554,16 @@ html, body {
 
   .ansd-navbar-top { padding: 0.65rem 1rem; }
 
-  .ansd-navbar-logo img {
+    .ansd-navbar-logo img {
     max-width: min(44vw, 180px);
-    max-height: 42px;
+    max-height: 55px;
     width: auto;
     height: auto;
+    position: static;
+    top: auto;
+    transform: none;
   }
+  
 
   .ansd-search-box {
     left: 0.75rem;
@@ -588,6 +605,7 @@ html, body {
   .ansd-navbar-top {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    padding-top: 2.5rem; /* ajuste selon combien tu veux descendre */
   }
   .ansd-menu-toggle { justify-self: start; }
   .ansd-navbar-logo { justify-self: center; }
@@ -881,6 +899,7 @@ html, body {
   }
 }
 
+
 /* ============================================================
    PAGE DE CONTENU — Publication (même style que "à la une")
    ============================================================ */
@@ -958,6 +977,25 @@ html, body {
 
 .ansd-node-publication__action a:hover {
   background: var(--ansd-primary, #0b5394);
+}
+
+.ansd-pub-sidebar p {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eceff2;
+}
+
+.ansd-pub-sidebar p:last-of-type {
+  border-bottom: none;
+}
+
+.ansd-pub-sidebar strong {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 @media (max-width: 700px) {
@@ -1778,6 +1816,8 @@ html, body {
   font-size: 1.05rem;
   line-height: 1.8;
   color: #333;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .ansd-node-basic:has(.ansd-node-basic__image):not(:has(.protection-donnees-wrapper)) .ansd-node-basic__text p {
@@ -2161,6 +2201,31 @@ html, body {
   .ansd-phare-pubs__grid {
     grid-template-columns: 1fr;
   }
+}
+.ansd-phare-pub .views-field-field-document-pdf-upload a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0a63c9;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  background: #f5f6f8;
+  border-radius: 6px;
+  padding: 6px 14px;
+}
+
+.ansd-phare-pub .views-field-field-document-pdf-upload a::before {
+  content: "↓";
+}
+
+.ansd-phare-pub .views-field-field-document-pdf-upload a:hover {
+  background: #eaecef;
+}
+
+.ansd-phare-pub .views-field-field-document-pdf-upload .file-icon {
+  display: none;
 }
 
 /* ============================================================
@@ -4104,6 +4169,28 @@ html, body {
   .view-id-ses_regionale .view-content {
     grid-template-columns: 1fr;
   }
+}
+.view-id-ses_regionale .views-field-field-document-pdf-upload a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0a3d62;
+  font-weight: 600;
+  font-size: 13.5px;
+  text-decoration: none;
+}
+
+.view-id-ses_regionale .views-field-field-document-pdf-upload a::after {
+  content: "↓";
+  transition: transform 0.2s ease;
+}
+
+.view-id-ses_regionale .views-field-field-document-pdf-upload a:hover::after {
+  transform: translateY(2px);
+}
+
+.view-id-ses_regionale .views-field-field-document-pdf-upload .file-icon {
+  display: none;
 }
 
 /* ==========================================================================
@@ -7209,4 +7296,325 @@ html, body {
 }
 .ansd-parution-counter {
   display: none !important;
+}
+
+
+.ansd-ticker-copy a {
+  font-weight: 700 !important;
+}
+/* Bouton flottant langue */
+.ansd-lang-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+
+.ansd-lang-toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0a3d62;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.ansd-lang-toggle:hover {
+  transform: scale(1.08);
+}
+
+.ansd-lang-menu {
+  position: absolute;
+  bottom: 58px;
+  right: 0;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  padding: 10px 0;
+  min-width: 140px;
+}
+
+.ansd-lang-menu[hidden] {
+  display: none;
+}
+
+.ansd-lang-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ansd-lang-menu a {
+  display: block;
+  padding: 8px 18px;
+  color: #0a3d62;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ansd-lang-menu a:hover {
+  background: #f2f5f8;
+}
+
+.ansd-lang-menu a.is-active {
+  color: #00853f;
+}
+
+
+@media (max-width: 900px) {
+  .ansd-site-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 500 !important;
+  }
+  .ansd-site-header.is-scrolled {
+    background: #ffffff !important;
+  }
+}
+
+/* ============================================================
+   CAROUSEL ACTUALITÉS — ACCUEIL
+   ============================================================ */
+
+.ansd-actu-home-carousel {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.ansd-actu-home-carousel .view-content {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.ansd-actu-home-carousel .views-row {
+  display: none;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  align-items: center;
+  background: #f5f8fb;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.ansd-actu-home-carousel .views-row.is-active {
+  display: grid;
+}
+
+.ansd-actu-home-carousel .views-field-field-image img,
+.ansd-actu-home-carousel .views-field-field-image a {
+  display: block;
+  width: 100%;
+}
+
+.ansd-actu-home-carousel .views-field-field-image img {
+  border-radius: 8px;
+  height: 220px;
+  object-fit: cover;
+}
+
+.ansd-actu-home-carousel .views-field-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0a3d62;
+  line-height: 1.4;
+  margin-bottom: 0.6rem;
+}
+
+.ansd-actu-home-carousel .views-field-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ansd-actu-home-carousel .views-field-field-date-actu {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.ansd-actu-home-carousel .views-field-field-en-savoir-plus a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0a3d62;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ansd-actu-home-carousel .views-field-field-en-savoir-plus a::after {
+  content: "→";
+  transition: transform 0.2s ease;
+}
+
+.ansd-actu-home-carousel .views-field-field-en-savoir-plus a:hover::after {
+  transform: translateX(4px);
+}
+
+.ansd-actu-home-carousel__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ansd-actu-home-carousel__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.ansd-actu-home-carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #d5dce2;
+  cursor: pointer;
+  transition: background 0.2s ease, width 0.2s ease;
+}
+
+.ansd-actu-home-carousel__dot.is-active {
+  background: #0a3d62;
+  width: 22px;
+  border-radius: 5px;
+}
+
+.ansd-actu-home-carousel__arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #d5dce2;
+  background: #fff;
+  color: #0a3d62;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ansd-actu-home-carousel__arrow:hover {
+  background: #0a3d62;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .ansd-actu-home-carousel .views-row {
+    grid-template-columns: 1fr;
+  }
+  .ansd-actu-home-carousel .views-field-field-image img {
+    height: 180px;
+  }
+}
+/* CAROUSEL ACTUALITÉS — flèches dans le bloc */
+.ansd-actu-home-carousel {
+  position: relative;
+}
+
+.ansd-actu-home-carousel .ansd-actu-home-carousel__nav {
+  position: absolute;
+  right: 3rem;
+  bottom: 1.5rem;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .ansd-actu-home-carousel .views-row {
+    padding-bottom: 4.5rem;
+  }
+  .ansd-actu-home-carousel .ansd-actu-home-carousel__nav {
+    right: 0;
+    left: 0;
+  }
+}
+/* CAROUSEL ACTUALITÉS — placement des champs */
+.ansd-actu-home-carousel .views-row {
+  grid-template-rows: 1fr auto auto auto auto 1fr;
+  gap: 0 2rem;
+}
+
+.ansd-actu-home-carousel .views-row .views-field-field-image {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
+.ansd-actu-home-carousel .views-row .views-field-field-date-actu {
+  grid-column: 2;
+  grid-row: 2;
+  margin-bottom: 0.4rem;
+}
+
+.ansd-actu-home-carousel .views-row .views-field-title {
+  grid-column: 2;
+  grid-row: 3;
+  margin-bottom: 0.5rem;
+}
+
+.ansd-actu-home-carousel .views-row .views-field-field-bref {
+  grid-column: 2;
+  grid-row: 4;
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.ansd-actu-home-carousel .views-row .views-field-field-bref .field-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ansd-actu-home-carousel .views-row .views-field-field-en-savoir-plus {
+  grid-column: 2;
+  grid-row: 5;
+}
+
+@media (max-width: 700px) {
+  .ansd-actu-home-carousel .views-row {
+    grid-template-rows: none;
+    gap: 1rem;
+  }
+  .ansd-actu-home-carousel .views-row .views-field-field-image,
+  .ansd-actu-home-carousel .views-row .views-field-title,
+  .ansd-actu-home-carousel .views-row .views-field-field-date-actu,
+  .ansd-actu-home-carousel .views-row .views-field-field-bref,
+  .ansd-actu-home-carousel .views-row .views-field-field-en-savoir-plus {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+/* ses nationales pdf */
+.view-id-ses_nationales .views-field-field-document-pdf-upload a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0a3d62;
+  font-weight: 600;
+  font-size: 13.5px;
+  text-decoration: none;
+}
+
+.view-id-ses_nationales .views-field-field-document-pdf-upload a::after {
+  content: "↓";
+  transition: transform 0.2s ease;
+}
+
+.view-id-ses_nationales .views-field-field-document-pdf-upload a:hover::after {
+  transform: translateY(2px);
+}
+
+.view-id-ses_nationales .views-field-field-document-pdf-upload .file-icon {
+  display: none;
 }

@@ -14,31 +14,32 @@
     <aside class="ansd-pub-sidebar">
 
       {% if content.field_derniere_publication %}
-        <p><strong>Dernière publication :</strong>
-          {{ content.field_derniere_publication }}
-        </p>
+        <p><strong>Dernière publication :</strong> {{ content.field_derniere_publication|render|striptags|trim }}</p>
       {% endif %}
 
       {% if content.field_date_publication %}
-        <p><strong>Prochaine parution :</strong>
-          {{ content.field_date_publication }}
-        </p>
+        <p><strong>Prochaine parution :</strong> {{ content.field_date_publication|render|striptags|trim }}</p>
       {% endif %}
 
       <hr>
 
       {% if content.field_date_mise_en_ligne %}
-        <p><strong>Date de mise en ligne :</strong>
-          {{ content.field_date_mise_en_ligne }}
-        </p>
+        <p><strong>Date de mise en ligne :</strong> {{ content.field_date_mise_en_ligne|render|striptags|trim }}</p>
       {% endif %}
 
-      {% if content.field_document_pdf.0['#url'] %}
+      {% if content.field_document_pdf.0['#url'] or content.field_document_pdf.1['#url'] %}
   <p>
     <strong>VERSION IMPRIMABLE</strong><br>
-    <a href="{{ content.field_document_pdf.0['#url'] }}" download target="_blank" rel="noopener noreferrer">
-      Télécharger
-    </a>
+    {% if content.field_document_pdf.0['#url'] %}
+      <a href="{{ content.field_document_pdf.0['#url'] }}" download target="_blank" rel="noopener noreferrer">
+        {{ content.field_document_pdf.0['#title']|default('Télécharger') }}
+      </a><br>
+    {% endif %}
+    {% if content.field_document_pdf.1['#url'] %}
+      <a href="{{ content.field_document_pdf.1['#url'] }}" download target="_blank" rel="noopener noreferrer">
+        {{ content.field_document_pdf.1['#title']|default('Télécharger') }}
+      </a>
+    {% endif %}
   </p>
 {% endif %}
 

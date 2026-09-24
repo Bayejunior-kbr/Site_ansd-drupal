@@ -29,7 +29,7 @@
 
        <div class="ansd-navbar-logo">
   <a href="{{ path('<front>') }}">
-    <img src="{{ base_path ~ directory }}/images/LOGO ANSD HD.png" alt="ANSD - Agence Nationale de la Statistique et de la Démographie">
+    <img src="{{ base_path ~ directory }}/images/LOGO.png" alt="ANSD - Agence Nationale de la Statistique et de la Démographie">
   </a>
 </div>
 
@@ -54,8 +54,23 @@
           {{ page.primary_menu }}
         </div>
       </nav>
-    </header>
+        </header>
   </div>
+
+  {% if page.language_switcher %}
+    <div class="ansd-lang-float" id="ansd-lang-float">
+      <button class="ansd-lang-toggle" type="button" id="ansd-lang-toggle" aria-label="Changer de langue" aria-expanded="false" aria-controls="ansd-lang-menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </button>
+      <div class="ansd-lang-menu" id="ansd-lang-menu" hidden>
+        {{ page.language_switcher }}
+      </div>
+    </div>
+  {% endif %}
 
   {% if page.hero %}
     <div class="ansd-hero-content">
@@ -144,6 +159,41 @@
 {# Remplacez uniquement le bloc <script> actuel de page.html.twig par celui-ci. #}
 <script>
   (function () {
+    // Injecte le CSS directement, indépendamment du fichier style.css et de son cache
+    var styleTag = document.createElement('style');
+    styleTag.textContent = `
+      @media (min-width: 901px) {
+        .ansd-ticker {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          z-index: 500 !important;
+        }
+        .ansd-navbar {
+          margin-top: var(--ansd-ticker-height, 42px) !important;
+        }
+        .ansd-primary-menu.ansd-menu-stuck {
+          position: fixed !important;
+          top: var(--ansd-ticker-height, 42px) !important;
+          left: 0 !important;
+          right: 0 !important;
+          z-index: 499 !important;
+          background: #ffffff !important;
+          box-shadow: 0 8px 24px rgba(15, 38, 61, 0.12) !important;
+        }
+        .ansd-primary-menu.ansd-menu-stuck .ansd-menu-item > a {
+          color: #152333 !important;
+          filter: none !important;
+        }
+        .ansd-primary-menu.ansd-menu-stuck .ansd-menu-item:hover > a {
+          background: rgba(11, 83, 148, 0.08) !important;
+          color: var(--ansd-primary, #0b5394) !important;
+        }
+      }
+    `;
+    document.head.appendChild(styleTag);
+
     var header = document.querySelector('.ansd-site-header');
     var navbarTop = document.querySelector('.ansd-navbar-top');
     var menuBtn = document.getElementById('ansd-menu-toggle');
@@ -151,6 +201,7 @@
     var searchBtn = document.getElementById('ansd-search-toggle');
     var searchBox = document.getElementById('ansd-search-box');
     var mobile = window.matchMedia('(max-width: 900px)');
+    var ticker = document.querySelector('.ansd-ticker');
 
     function setMenuOffset() {
       if (navbarTop) {
@@ -160,11 +211,26 @@
       }
     }
 
+    function setHeaderHeights() {
+      if (ticker) {
+        document.documentElement.style.setProperty(
+          '--ansd-ticker-height', ticker.getBoundingClientRect().height + 'px'
+        );
+      }
+    }
+
     function updateHeader() {
+      var isScrolled = (window.scrollY || document.body.scrollTop || document.documentElement.scrollTop) > 70;
       if (header) {
-        header.classList.toggle('is-scrolled', window.scrollY > 20);
+        header.classList.toggle('is-scrolled', isScrolled);
+      }
+      if (menu && !mobile.matches) {
+        menu.classList.toggle('ansd-menu-stuck', isScrolled);
+      } else if (menu) {
+        menu.classList.remove('ansd-menu-stuck');
       }
       setMenuOffset();
+      setHeaderHeights();
     }
 
     function closeMenu() {
@@ -205,6 +271,7 @@
     }
 
     window.addEventListener('scroll', updateHeader, { passive: true });
+document.body.addEventListener('scroll', updateHeader, { passive: true });
     window.addEventListener('resize', function () {
       if (!mobile.matches) closeMenu();
       updateHeader();
