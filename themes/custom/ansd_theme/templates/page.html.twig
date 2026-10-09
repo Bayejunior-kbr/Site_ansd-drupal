@@ -43,7 +43,7 @@
       </div>
 
       <div class="ansd-search-box" id="ansd-search-box" hidden>
-        <form action="/drupalwebsite/search" method="get" class="ansd-search-form">
+        <form action="{{ path('view.recherche.page_1') }}" method="get" class="ansd-search-form">
           <input type="text" name="keys" placeholder="Rechercher sur le site..." autocomplete="off">
           <button type="submit">OK</button>
         </form>

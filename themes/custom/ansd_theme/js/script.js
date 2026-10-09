@@ -562,3 +562,65 @@ document.addEventListener('DOMContentLoaded', function () {
     link.setAttribute('rel', 'noopener noreferrer');
   });
 });
+(function () {
+  function initAutoScroll(el) {
+    if (!el || el.dataset.autoScrollInit) return;
+
+    var track = el.querySelector('.view-content');
+    if (!track) return;
+
+    var originalWidth = track.scrollWidth;
+    if (originalWidth <= el.clientWidth) return; // pas assez de contenu pour boucler, on laisse tel quel
+
+    el.dataset.autoScrollInit = 'true';
+
+    // Duplique toutes les lignes pour créer un deuxième set identique juste après le premier
+    var rows = Array.prototype.slice.call(track.children);
+    rows.forEach(function (row) {
+      track.appendChild(row.cloneNode(true));
+    });
+
+    var isPaused = false;
+    var resumeTimeout;
+
+    function step() {
+      if (!isPaused && el.classList.contains('is-active')) {
+        el.scrollLeft += 0.6;
+        if (el.scrollLeft >= originalWidth) {
+          el.scrollLeft -= originalWidth; // recule d'un set entier -> invisible car identique
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+
+    function pause() { isPaused = true; clearTimeout(resumeTimeout); }
+    function resumeLater() {
+      clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(function () { isPaused = false; }, 2500);
+    }
+
+    el.addEventListener('mouseenter', pause);
+    el.addEventListener('mouseleave', resumeLater);
+    el.addEventListener('touchstart', pause, { passive: true });
+    el.addEventListener('touchend', resumeLater);
+    el.addEventListener('wheel', function () { pause(); resumeLater(); });
+    el.addEventListener('pointerdown', pause);
+    el.addEventListener('pointerup', resumeLater);
+  }
+
+  function scanForMarquees() {
+    document.querySelectorAll('.ansd-marquee').forEach(initAutoScroll);
+  }
+
+  scanForMarquees();
+  var attempts = 0;
+  var retryInterval = setInterval(function () {
+    scanForMarquees();
+    attempts++;
+    if (attempts > 20) clearInterval(retryInterval);
+  }, 500);
+
+  var observer = new MutationObserver(function () { scanForMarquees(); });
+  observer.observe(document.body, { childList: true, subtree: true });
+})();

@@ -27,54 +27,61 @@
         <p><strong>Date de mise en ligne :</strong> {{ content.field_date_mise_en_ligne|render|striptags|trim }}</p>
       {% endif %}
 
-      {% if content.field_document_pdf.0['#url'] or content.field_document_pdf.1['#url'] %}
+      {% if not node.field_field_document_pdf_fichier.isEmpty %}
   <p>
     <strong>VERSION IMPRIMABLE</strong><br>
-    {% if content.field_document_pdf.0['#url'] %}
-      <a href="{{ content.field_document_pdf.0['#url'] }}" download target="_blank" rel="noopener noreferrer">
-        {{ content.field_document_pdf.0['#title']|default('Télécharger') }}
-      </a><br>
-    {% endif %}
-    {% if content.field_document_pdf.1['#url'] %}
-      <a href="{{ content.field_document_pdf.1['#url'] }}" download target="_blank" rel="noopener noreferrer">
-        {{ content.field_document_pdf.1['#title']|default('Télécharger') }}
-      </a>
-    {% endif %}
+    {% for item in node.field_field_document_pdf_fichier %}
+      <a href="{{ file_url(item.entity.fileuri) }}" download target="_blank" rel="noopener noreferrer">
+        {{ item.description|default('Télécharger') }}
+      </a>{% if not loop.last %}<br>{% endif %}
+    {% endfor %}
   </p>
 {% endif %}
 
-      {% if content.field_rapports_archives %}
-        <div class="ansd-pub-archives">
-          <button type="button" class="ansd-pub-archives__toggle">
-            Rapports et analyses
-          </button>
-          <div class="ansd-pub-archives__list">
-            {{ content.field_rapports_archives }}
-          </div>
-        </div>
-      {% endif %}
+      {% if not node.field_rapports_archives_pdf.isEmpty %}
+  <div class="ansd-pub-archives">
+    <button type="button" class="ansd-pub-archives__toggle">
+      Rapports et analyses
+    </button>
+    <div class="ansd-pub-archives__list">
+      {% for item in node.field_rapports_archives_pdf %}
+        <a href="{{ file_url(item.entity.fileuri) }}" target="_blank" rel="noopener noreferrer">
+          {{ item.description|default('Télécharger') }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
 
-      {% if content.field_donnees %}
-        <div class="ansd-pub-archives">
-          <button type="button" class="ansd-pub-archives__toggle">
-            Données
-          </button>
-          <div class="ansd-pub-archives__list">
-            {{ content.field_donnees }}
-          </div>
-        </div>
-      {% endif %}
+      {% if not node.field_donnees_pdf.isEmpty %}
+  <div class="ansd-pub-archives">
+    <button type="button" class="ansd-pub-archives__toggle">
+      Données
+    </button>
+    <div class="ansd-pub-archives__list">
+      {% for item in node.field_donnees_pdf %}
+        <a href="{{ file_url(item.entity.fileuri) }}" target="_blank" rel="noopener noreferrer">
+          {{ item.description|default('Télécharger') }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
 
-      {% if content.field_documents_de_reference %}
-        <div class="ansd-pub-archives">
-          <button type="button" class="ansd-pub-archives__toggle">
-            Documents de référence
-          </button>
-          <div class="ansd-pub-archives__list">
-            {{ content.field_documents_de_reference }}
-          </div>
-        </div>
-      {% endif %}
+      {% if not node.field_documents_de_reference_pdf.isEmpty %}
+  <div class="ansd-pub-archives">
+    <button type="button" class="ansd-pub-archives__toggle">
+      Documents de référence
+    </button>
+    <div class="ansd-pub-archives__list">
+      {% for item in node.field_documents_de_reference_pdf %}
+        <a href="{{ file_url(item.entity.fileuri) }}" target="_blank" rel="noopener noreferrer">
+          {{ item.description|default('Télécharger') }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
 
       {% if content.field_themes_similaires %}
     <div class="ansd-pub-archives">
@@ -91,7 +98,7 @@
 
   </div>
 
-  {% if content.field_graphe_iframe|render|striptags|trim %}
+    {% if not node.field_graphe_iframe.isEmpty %}
     <div class="ansd-pub-graphe">
       <h2>Graphe indicateur</h2>
       <div class="ansd-pub-graphe__embed">

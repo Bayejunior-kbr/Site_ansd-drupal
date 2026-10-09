@@ -3015,7 +3015,7 @@ html, body {
 .view-id-ressources .views-row {
   background: #fff;
   border: 1px solid #eaeaea;
-  border-left: 4px solid #00853F;
+  border-left: 4px solid #0B2545;
   border-radius: 4px;
   padding: 24px;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-left-color 0.25s ease;
@@ -3032,8 +3032,8 @@ html, body {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.view-id-ressources .views-row:nth-child(4n+2) { border-left-color: #FDEF42; }
-.view-id-ressources .views-row:nth-child(4n+3) { border-left-color: #E31B23; }
+.view-id-ressources .views-row:nth-child(4n+2) { border-left-color: #0B2545; }
+.view-id-ressources .views-row:nth-child(4n+3) { border-left-color: #0B2545; }
 .view-id-ressources .views-row:nth-child(4n+4) { border-left-color: #0B2545; }
 
 .view-id-ressources .views-row:hover {
@@ -3050,7 +3050,7 @@ html, body {
   margin-bottom: 12px;
 }
 
-.view-id-ressources .views-field-field-lien-ressource a {
+/* .view-id-ressources .views-field-field-lien-ressource a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -3072,7 +3072,7 @@ html, body {
 
 .view-id-ressources .views-field-field-lien-ressource a:hover::after {
   transform: translateX(4px);
-}
+} */
 
 @media (prefers-reduced-motion: reduce) {
   .view-id-ressources .views-row {
@@ -3082,7 +3082,33 @@ html, body {
   }
 }
 
+.view-id-ressources .views-field-field-document-pdf-upload a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0a63c9;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
 
+.view-id-ressources .views-field-field-document-pdf-upload a::after {
+  content: "→";
+  transition: transform 0.2s ease;
+}
+
+.view-id-ressources .views-field-field-document-pdf-upload a:hover {
+  color: #0847a0;
+}
+
+.view-id-ressources .views-field-field-document-pdf-upload a:hover::after {
+  transform: translateX(4px);
+}
+
+.view-id-ressources .views-field-field-document-pdf-upload .file-icon {
+  display: none;
+}
 
 /* ==========================================================================
    Bouton retour en haut
@@ -4516,7 +4542,7 @@ html, body {
 .recensements-frise {
   width: 100%;
   background: #fff;
-  padding: 60px 20px 90px;
+  padding: 60px 20px 0;
 }
 
 .recensements-frise-inner {
@@ -4534,7 +4560,9 @@ html, body {
 
 .frise-ligne {
   position: relative;
-  padding: 20px 0;
+  max-width: 1000px;
+  margin: 0 auto 90px;
+  padding: 20px 20px 0;
 }
 
 /* ligne verticale centrale */
@@ -4556,12 +4584,13 @@ html, body {
   box-sizing: border-box;
 }
 
-.frise-gauche {
+/* cartes impaires : à gauche / cartes paires : à droite */
+.frise-item:nth-child(odd) {
   left: 0;
   text-align: right;
 }
 
-.frise-droite {
+.frise-item:nth-child(even) {
   left: 50%;
   text-align: left;
 }
@@ -4578,11 +4607,11 @@ html, body {
   z-index: 2;
 }
 
-.frise-gauche .frise-point {
+.frise-item:nth-child(odd) .frise-point {
   right: -9px;
 }
 
-.frise-droite .frise-point {
+.frise-item:nth-child(even) .frise-point {
   left: -9px;
 }
 
@@ -4596,11 +4625,11 @@ html, body {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.frise-gauche .frise-carte {
+.frise-item:nth-child(odd) .frise-carte {
   text-align: right;
 }
 
-.frise-droite .frise-carte {
+.frise-item:nth-child(even) .frise-carte {
   text-align: left;
 }
 
@@ -4630,11 +4659,11 @@ html, body {
   margin-bottom: 14px;
 }
 
-.frise-gauche .frise-logo {
+.frise-item:nth-child(odd) .frise-logo {
   margin-left: auto;
 }
 
-.frise-droite .frise-logo {
+.frise-item:nth-child(even) .frise-logo {
   margin-right: auto;
 }
 
@@ -4652,7 +4681,8 @@ html, body {
   line-height: 1.4;
 }
 
-.frise-btn {
+/* bouton (le lien généré par la vue) */
+.frise-lien a {
   display: inline-block;
   background: #0a3d62;
   color: #fff;
@@ -4664,59 +4694,63 @@ html, body {
   transition: background 0.2s ease;
 }
 
-.frise-btn:hover {
+.frise-lien a:hover {
   background: #00853f;
   color: #fff;
 }
 
-/* Recensement le plus récent mis en avant */
-.frise-item-featured .frise-carte {
+/* Recensement le plus ancien mis en avant (dernière carte) */
+.frise-item:last-child .frise-carte {
   max-width: 380px;
   border: 2px solid #0a3d62;
   box-shadow: 0 8px 24px rgba(10, 61, 98, 0.15);
 }
 
-.frise-item-featured .frise-point {
+.frise-item:last-child .frise-point {
   width: 24px;
   height: 24px;
   background: #e31b23;
   box-shadow: 0 0 0 4px #e31b23;
 }
 
-.frise-item-featured .frise-badge {
+.frise-item:last-child .frise-badge {
   background: #e31b23;
 }
 
 /* --- RESPONSIVE --- */
 @media (max-width: 767px) {
+  .frise-ligne {
+    padding: 20px 0 0;
+  }
+
   .frise-ligne::before {
     left: 20px;
   }
 
   .frise-item,
-  .frise-gauche,
-  .frise-droite {
+  .frise-item:nth-child(odd),
+  .frise-item:nth-child(even) {
     width: 100%;
     left: 0;
     text-align: left !important;
     padding: 0 0 40px 55px;
   }
 
-  .frise-gauche .frise-point,
-  .frise-droite .frise-point {
+  .frise-item:nth-child(odd) .frise-point,
+  .frise-item:nth-child(even) .frise-point {
     left: 11px;
     right: auto;
   }
 
   .frise-carte,
-  .frise-gauche .frise-carte,
-  .frise-droite .frise-carte {
+  .frise-item:nth-child(odd) .frise-carte,
+  .frise-item:nth-child(even) .frise-carte {
     text-align: left !important;
     max-width: 100%;
   }
 
-  .frise-gauche .frise-logo,
-  .frise-droite .frise-logo {
+  .frise-item:nth-child(odd) .frise-logo,
+  .frise-item:nth-child(even) .frise-logo {
     margin-left: 0;
     margin-right: 0;
   }
@@ -4728,6 +4762,14 @@ html, body {
   .recensements-hero-titre {
     font-size: 1.8rem;
   }
+}
+.region-content:has(.view-frise-des-recensements) {
+  display: flex;
+  flex-direction: column;
+}
+
+.region-content:has(.view-frise-des-recensements) > :has(.view-frise-des-recensements) {
+  order: 99;
 }
 
 /* =========================================
@@ -6054,6 +6096,8 @@ html, body {
   font-size: 16px;
   line-height: 1.7;
   color: #3A3F44;
+   text-align: justify;
+  hyphens: auto;
 }
 
 .ansd-actualite__texte p {
@@ -7616,5 +7660,270 @@ html, body {
 }
 
 .view-id-ses_nationales .views-field-field-document-pdf-upload .file-icon {
+  display: none;
+}
+
+/* ============================================================ */
+/* styliser titre actualites....*/
+#block-ansd-theme-views-block-liste-des-actualites-block-1 h2 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #0a3d62;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+}
+
+#block-ansd-theme-views-block-liste-des-actualites-block-1 h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 48px;
+  height: 4px;
+  background: #0a3d62;
+  border-radius: 2px;
+}
+
+@media (max-width: 600px) {
+  #block-ansd-theme-views-block-liste-des-actualites-block-1 h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Bloc "Senegal en bref" - scroll horizontal (remplace l'ancien marquee) */
+.ansd-marquee {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 24px;
+  padding: 16px 8px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ansd-marquee::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ansd-marquee::-webkit-scrollbar-thumb {
+  background: rgba(10, 61, 98, 0.3);
+  border-radius: 3px;
+}
+
+.ansd-marquee .views-row {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 160px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.ansd-marquee .ansd-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0a3d62;
+  order: 1;
+}
+
+.ansd-marquee .ansd-stat-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  order: 2;
+  margin-top: 4px;
+}
+
+.ansd-marquee .ansd-stat-date {
+  font-size: 0.75rem;
+  color: #888;
+  order: 3;
+  margin-top: 2px;
+}
+
+/* === Correctif Sénégal en bref : transparence + carousel auto/manuel === */
+
+.ansd-brief-content.ansd-marquee {
+  display: none !important;
+}
+.ansd-brief-content.ansd-marquee.is-active {
+  display: block !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem 0.5rem;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+
+.ansd-brief-content.ansd-marquee.is-active .view-content {
+  display: flex !important;
+  width: max-content;
+  gap: 0;
+}
+
+.ansd-brief-content.ansd-marquee::-webkit-scrollbar { height: 6px; }
+.ansd-brief-content.ansd-marquee::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.3);
+  border-radius: 3px;
+}
+
+.ansd-marquee .views-row {
+  flex: 0 0 auto;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 180px;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0.5rem 1.5rem;
+  border-right: 1px solid rgba(255,255,255,.15);
+}
+.ansd-marquee .views-row:last-child { border-right: none; }
+
+.ansd-marquee .ansd-stat-value { order:1; font-size:1.5rem; font-weight:700; color:#fff !important; }
+.ansd-marquee .ansd-stat-label { order:2; font-weight:500; opacity:.9; font-size:.9rem; color:#fff !important; margin-top:.3rem; }
+.ansd-marquee .ansd-stat-date { order:3; font-style:italic; opacity:.65; font-size:.78rem; color:#fff !important; margin-top:.1rem; }
+
+.ansd-marquee .ansd-stat-value a,
+.ansd-marquee .ansd-stat-value a:link,
+.ansd-marquee .ansd-stat-value a:visited,
+.ansd-marquee .ansd-stat-value a:hover,
+.ansd-marquee .ansd-stat-value a:active {
+  color: #fff !important;
+  text-decoration: none;
+}
+.ansd-marquee .ansd-stat-value a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================
+   COMMUNIQUÉS DE PRESSE (liste + détail)
+   ========================================================== */
+
+/* ---- Liste (View) ---- */
+.view-communiques-de-presse {
+  max-width: 900px;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+}
+
+.view-communiques-de-presse .views-row {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #e3e6ec;
+}
+
+.view-communiques-de-presse .views-field-title a {
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0b2a5b;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.view-communiques-de-presse .views-field-title a:hover {
+  color: #1a6fd1;
+  text-decoration: underline;
+}
+
+.view-communiques-de-presse .views-field-field-date,
+.view-communiques-de-presse .views-field-field-numero {
+  display: inline-block;
+  margin-right: 1.5rem;
+  margin-top: .4rem;
+  font-size: .9rem;
+  color: #5b6472;
+}
+
+/* ---- Détail (node) ---- */
+.communique-detail .communique-container {
+  max-width: 780px;
+  margin: 2.5rem auto 5rem;
+  padding: 0 1.25rem;
+}
+
+.communique-detail .communique-titre {
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #0b2a5b;
+  margin-bottom: 1.25rem;
+}
+
+.communique-detail .communique-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  font-size: .9rem;
+  color: #5b6472;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e3e6ec;
+}
+
+.communique-detail .communique-body {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: #2b2f36;
+  text-align: left;
+}
+
+.communique-detail .communique-body p {
+  margin: 0 0 1.4rem;
+}
+
+.communique-detail .communique-body .communique-intro {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #1a1f27;
+  padding-left: 1rem;
+  border-left: 4px solid #1a6fd1;
+}
+
+.communique-detail .communique-body strong {
+  color: #0b2a5b;
+}
+
+.communique-detail .communique-body .communique-lien {
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  background: #f3f6fb;
+  border-radius: 8px;
+  font-size: .95rem;
+}
+
+.communique-detail .communique-body a {
+  color: #1a6fd1;
+  word-break: break-all;
+}
+
+.communique-detail .communique-body a:hover {
+  text-decoration: underline;
+}
+.communique-detail .communique-body,
+.communique-detail .communique-body p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Page détail région : masquer la liste « SES Régionale » */
+.view-taxonomy-term .ansd-node-publication {
+  display: none;
+}
+.view-taxonomy-term .view-content {
   display: none;
 }

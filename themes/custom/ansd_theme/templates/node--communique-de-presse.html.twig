@@ -1,0 +1,16 @@
+<article{{ attributes.addClass('communique-detail') }}>
+  <div class="container communique-container">
+
+    <h1 class="communique-titre">{{ label }}</h1>
+
+    <div class="communique-meta">
+      <span class="communique-date">Date : {{ node.field_date.value|date('d/m/Y') }}</span>
+      <span class="communique-numero"><strong>Numéro :</strong> {{ node.field_numero.value }}</span>
+    </div>
+
+    <div class="communique-body">
+      {{ content.field_body }}
+    </div>
+
+  </div>
+</article>
